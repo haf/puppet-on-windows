@@ -1,0 +1,36 @@
+[user]
+	name = Henrik
+	email = henrik@haf.se
+[alias]
+	ad = add . -A
+	co = commit
+	com = commit -m
+	st = status -sb
+	
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lgg = log --graph --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	logg = log --oneline --format=\"%h %an %s\" --stat
+	remotes = for-each-ref --sort=-committerdate refs/remotes --count=30 --format='%(refname:short) | %(committerdate:short) %(authorname) -- %(subject)'
+	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+	unk = ls-files . --ignored --exclude-standard --others
+	unt = ls-files . --exclude-standard --others
+	undo = reset --hard
+	br = branch
+	up = pull
+	graph = log --graph --oneline --all
+	sst = submodule status
+	sup = submodule update
+	sin = submodule update
+	standup = !sh -c 'git log --pretty=format:\"%Cred%h%Creset - %Cgreen%cr%Creset : %s\" --since=\"`date -v-1d \"+%Y-%m-%d 00:00:00\"`\" --until=\"`date \"+%Y-%m-%d 00:00:00\"`\" --all --author=\"`git config --get user.name`\"'
+	ru = remote update
+
+[http]
+	postBuffer = 52428800
+[core]
+	autocrlf = false
+[mergetool "kdiff3"]
+	path = C:/Program Files (x86)/KDiff3/kdiff3.exe
+	keepBackup = false
+	trustExitCode = false
+[push]
+	default = simple
