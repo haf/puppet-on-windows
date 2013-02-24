@@ -15,7 +15,7 @@ node default {
     root => $code_location
   }
   
-  class { 'bashrc':
+  class { 'bashprofile':
     root => $code_location
   }
 
