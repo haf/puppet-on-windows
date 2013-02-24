@@ -1,0 +1,54 @@
+From f46b2e311636c027109f9cd8f65903ae10c298ea Mon Sep 17 00:00:00 2001
+From: Henrik <henrik@haf.se>
+Date: Sun, 24 Feb 2013 19:43:15 +0100
+Subject: [PATCH] Implementing naive but functional symlinks on windows.
+
+---
+ lib/puppet/type/file/target.rb | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/lib/puppet/type/file/target.rb b/lib/puppet/type/file/target.rb
+index e1dbdea..f6acbfe 100644
+--- a/lib/puppet/type/file/target.rb
++++ b/lib/puppet/type/file/target.rb
+@@ -32,8 +32,6 @@ module Puppet
+ 
+     # Create our link.
+     def mklink
+-      raise Puppet::Error, "Cannot symlink on Microsoft Windows" if Puppet.features.microsoft_windows?
+-
+       target = self.should
+ 
+       # Clean up any existing objects.  The argument is just for logging,
+@@ -47,10 +45,10 @@ module Puppet
+           mode = @resource.should(:mode)
+           if mode
+             Puppet::Util.withumask(000) do
+-              File.symlink(target, @resource[:path])
++              symlink @resource[:path], target
+             end
+           else
+-            File.symlink(target, @resource[:path])
++            symlink @resource[:path], target
+           end
+         end
+ 
+@@ -60,6 +58,15 @@ module Puppet
+       end
+     end
+ 
++    def symlink src, targ
++      unless Puppet.features.microsoft_windows?
++        File.symlink(targ, src)
++      else
++        # on Windows, it's the other way around. Confusion abounds.
++        system %Q[cmd /c mklink "#{src}" "#{targ}"]
++      end
++    end
++
+     def insync?(currentvalue)
+       if [:nochange, :notlink].include?(self.should) or @resource.recurse?
+         return true
+-- 
+1.8.1.msysgit.1
+
