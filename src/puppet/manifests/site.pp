@@ -14,6 +14,10 @@ node default {
   class { 'id_rsa_pub':
     root => $code_location
   }
+  
+  class { 'bashrc':
+    root => $code_location
+  }
 
   # my packages:
   # chocolatey version all -lo
@@ -33,5 +37,5 @@ node default {
     ensure => installed,
   }
 
-  
+  # TODO: Visual Studio
 }
