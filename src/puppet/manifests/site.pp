@@ -1,41 +1,29 @@
 node default {
-  $code_location = 'D:/code/haf.puppettalk'
-  
+  $codelocation = 'D:/code/haf.puppettalk'
+
   notice("running as: $::username")
 
   Exec {
     path => $::path
   }
 
-  class { 'gitconfig':
-    root => $code_location
-  }
-
-  class { 'id_rsa_pub':
-    root => $code_location
-  }
-  
-  class { 'bashprofile':
-    root => $code_location
-  }
-
-  # my packages:
   # chocolatey version all -lo
   include chocolatey::exe
+  Package { provider => 'chocolatey' }
 
-  Package {
-    provider => 'chocolatey'
+  class { 'profiles::dotfiles':
+    codelocation => $codelocation
   }
-  
+
+  # all packages depend on havin the executable on disk
   Package <| |> { require +> Class['chocolatey::exe'] }
-  
-  package { '7zip.commandline':
-    ensure   => latest,
-  }
 
-  package { 'git.install':
-    ensure => installed,
-  }
 
+  class { 'profiles::windowsbaseline': }
+  # class { 'profiles::dotnetdev': }
+  class { 'profiles::rubydev': }
+  # - AdBlock plus
+  # - WebDeveloper toolbar
+  # - Firebug
   # TODO: Visual Studio
 }

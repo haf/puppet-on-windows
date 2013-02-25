@@ -6,16 +6,16 @@ require 'puppet/provider/package'
 Puppet::Type.type(:package).provide(:chocolatey, :parent => Puppet::Provider::Package) do
   desc "Package management using Chocolatey on Windows"
 
-    confine    :operatingsystem => :windows
+  confine :operatingsystem => :windows
 
   has_feature :installable, :uninstallable, :upgradeable, :versionable, :install_options
   chocopath = ENV['ChocolateyInstall'].to_s
   commands :chocolatey => chocopath + "/chocolateyInstall/chocolatey.cmd"
 
 
- def print() 
-   notice("The value is: '${name}'")
- end
+  def print() 
+    notice("The value is: '${name}'")
+  end
 
   def install
     should = @resource.should(:ensure)
