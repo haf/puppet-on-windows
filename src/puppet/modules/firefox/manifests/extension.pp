@@ -1,3 +1,0 @@
-class firefox::extension($src) {
-  
-}
