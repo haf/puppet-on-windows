@@ -1,5 +1,5 @@
 class profiles::dotnetdev {
-  package { 'VisualStudio2012Ultimate':
+  package { 'NugetPackageExplorer':
     ensure => installed
   }
   package { 'rabbitmq':

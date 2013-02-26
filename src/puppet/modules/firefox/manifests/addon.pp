@@ -5,10 +5,15 @@ define firefox::addon($source) {
   $targetpath = join($extensions, basename($source))
 
   notify { "installing firefox ($ffpath) add-on: $name, to $extensions": }
-  
+
+  #file { $extensions:
+  #  ensure => directory
+  #}
+
   #httpfile { "$extensions/$name.xpi":
   #  ensure  => present,
   #  source  => $source,
-  #  require => Package['firefox']
+  #  # hash => ... TODO - better hashing
+  #  require => Package['firefox'] #[#]
   #}
 }

@@ -5,7 +5,10 @@ class profiles::windowsbaseline(
     '7zip.commandline',
     'git.install',
     'firefox',
-    '1password'
+    '1password',
+    'sysinternals',
+    #'spotify', # run as ordinary user
+    'skype'
     ]:
     ensure => installed,
     provider => 'chocolatey'

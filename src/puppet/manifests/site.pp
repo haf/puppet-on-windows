@@ -17,5 +17,5 @@ node default {
     codelocation => $codelocation
   }
   class { 'profiles::rubydev': }
-  # class { 'profiles::dotnetdev': }
+  class { 'profiles::dotnetdev': }
 }
