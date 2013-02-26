@@ -1,7 +1,7 @@
 class bashprofile(
   $root = undef
 ) {
-  $targ = "C:/Users/${::username}"
+  $targ = "$::systemdrive/Users/${::username}"
 
   file { "$targ/.bash_profile":
     ensure  => link,

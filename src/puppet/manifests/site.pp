@@ -3,7 +3,7 @@ node default {
   notice("running as: $::username")
   Exec { path => $::path }
   Package { provider => 'chocolatey' }
-  
+
   class { 'profiles::dotfiles':
     codelocation => $codelocation
   }

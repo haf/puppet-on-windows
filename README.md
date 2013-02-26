@@ -1,6 +1,6 @@
 # Bootstrap Windows Dev Machine
 
-1. Install Windows 7
+1. Install Windows 7 + [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 2. Install VBoxAdditions
 3. Share folder, E:, permanent D:\code\haf.puppettalk, no automount
 4. In PS (**As Administrator**):
@@ -15,7 +15,7 @@
   cmd /E:ON /K "C:\Program Files (x86)\Puppet Labs\Puppet\bin\puppet_shell.bat"
   puppet apply manifests/initial.pp --debug --verbose --trace --modulepath modules --libdir lib
   
---> RESTART CONSOLE (1 admin, 1 normal)
+--> RESTART CONSOLES (1 admin, 1 normal)
 
 --> NOW WE HAVE CHOCOLATEY:
   cinst spotify
