@@ -1,4 +1,6 @@
-class profiles::windowsbaseline {
+class profiles::windowsbaseline(
+  $codelocation
+) {
   package { [
     '7zip.commandline',
     'git.install',
@@ -6,6 +8,7 @@ class profiles::windowsbaseline {
     '1password'
     ]:
     ensure => installed,
+    provider => 'chocolatey'
   }
 
   Firefox::Addon <| |> { require +> Package['firefox'] }
@@ -20,5 +23,8 @@ class profiles::windowsbaseline {
   }
   firefox::addon { 'adblock-plus':
     source => "https://addons.mozilla.org/firefox/downloads/latest/adblock-plus/addon-adblock-plus-latest.xpi",
+  }
+  class { 'conemu':
+    codelocation => $codelocation
   }
 }

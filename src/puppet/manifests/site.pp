@@ -1,29 +1,21 @@
 node default {
-  $codelocation = 'D:/code/haf.puppettalk'
-
+  $codelocation = "$::systemdrive/Users/$::username/provision"
   notice("running as: $::username")
-
-  Exec {
-    path => $::path
-  }
-
-  # chocolatey version all -lo
-  include chocolatey::exe
+  Exec { path => $::path }
   Package { provider => 'chocolatey' }
-
+  
   class { 'profiles::dotfiles':
     codelocation => $codelocation
   }
-
-  # all packages depend on havin the executable on disk
+  
+  include chocolatey
+  class { 'chocolatey::exe': }
+  
   Package <| |> { require +> Class['chocolatey::exe'] }
 
-
-  class { 'profiles::windowsbaseline': }
-  # class { 'profiles::dotnetdev': }
+  class { 'profiles::windowsbaseline':
+    codelocation => $codelocation
+  }
   class { 'profiles::rubydev': }
-  # - AdBlock plus
-  # - WebDeveloper toolbar
-  # - Firebug
-  # TODO: Visual Studio
+  # class { 'profiles::dotnetdev': }
 }

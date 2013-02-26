@@ -10,5 +10,4 @@ class profiles::dotfiles($codelocation) {
   class { 'bashprofile':
     root => $codelocation
   }
-
 }
